@@ -1,7 +1,29 @@
 @import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss"
+@import "variables"
+
+body
+	font-family: Asap, sans-serif
+	font-size: 16px
+	background-color: $color-backgrounds
 
 label
-  min-width: 120px
+  min-width: 40%
 
 fieldset
   margin: 50px 0
+
+.person-details
+	input
+		padding: 10px
+		margin-bottom: 10px
+		min-width: 50%
+		border-radius: 10px
+		border: 1px solid black
+		&:focus
+			outline: none;
+			border: 1px solid blue
+			box-shadow: 0 0 1px 2px lightblue
+	
+
+.label-block
+	display: block
