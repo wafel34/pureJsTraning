@@ -1,7 +1,58 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-//global.jQuery = require("jquery");
+/*jslint browser: true*/
+/*jslint devel: true */
+var require = require;
 window.$ = window.jQuery = require('jquery');
 var bootstrap = require('bootstrap-sass');
+var nameRegEx = /[\d_+.,!@#$%\^&*();\/|<>"'?=+:]/g,
+	i,
+	inputItem = document.querySelectorAll('.person-details input.child');
+
+
+//3. Valitaion of First name, last name and city.
+function checkNames(source) {
+	'use strict';
+	var srcValue = source.value;
+	if (srcValue.search(nameRegEx) === -1) {
+		source.className = 'child passed';
+	} else {
+		source.className = 'child danger';
+	}
+	
+}
+
+
+//2. Handler function for event listener
+function myHandler(e) {
+	'use strict';
+	var src,
+		srcName;
+	e = e || window.event;
+	src = e.target || e.srcElement;
+	/*if (src.nodeName.toLowerCase() !== 'input') {
+		return;
+	}*/
+	
+	srcName = src.name;
+	
+	if (src.value !== '') {
+		switch (srcName) {
+		case 'first_name':
+		case 'last_name':
+		case 'city':
+			checkNames(src);
+			break;
+				
+		}
+	} else {
+		src.className = 'child';
+	}
+}
+
+// 1. Adding event listeners to input items in .person-details section
+for (i = 0; i < inputItem.length; i = i + 1) {
+	inputItem[i].addEventListener('blur', myHandler, false);
+}
 
 },{"bootstrap-sass":2,"jquery":3}],2:[function(require,module,exports){
 /*!
@@ -12638,4 +12689,4 @@ return jQuery;
 } );
 
 },{}]},{},[1])
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy9nbG9iYWwualF1ZXJ5ID0gcmVxdWlyZShcImpxdWVyeVwiKTtcclxud2luZG93LiQgPSB3aW5kb3cualF1ZXJ5ID0gcmVxdWlyZSgnanF1ZXJ5Jyk7XHJcbnZhciBib290c3RyYXAgPSByZXF1aXJlKCdib290c3RyYXAtc2FzcycpO1xyXG4iXX0=
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLypqc2xpbnQgYnJvd3NlcjogdHJ1ZSovXHJcbi8qanNsaW50IGRldmVsOiB0cnVlICovXHJcbnZhciByZXF1aXJlID0gcmVxdWlyZTtcclxud2luZG93LiQgPSB3aW5kb3cualF1ZXJ5ID0gcmVxdWlyZSgnanF1ZXJ5Jyk7XHJcbnZhciBib290c3RyYXAgPSByZXF1aXJlKCdib290c3RyYXAtc2FzcycpO1xyXG52YXIgbmFtZVJlZ0V4ID0gL1tcXGRfKy4sIUAjJCVcXF4mKigpO1xcL3w8PlwiJz89KzpdL2csXHJcblx0aSxcclxuXHRpbnB1dEl0ZW0gPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcucGVyc29uLWRldGFpbHMgaW5wdXQuY2hpbGQnKTtcclxuXHJcblxyXG4vLzMuIFZhbGl0YWlvbiBvZiBGaXJzdCBuYW1lLCBsYXN0IG5hbWUgYW5kIGNpdHkuXHJcbmZ1bmN0aW9uIGNoZWNrTmFtZXMoc291cmNlKSB7XHJcblx0J3VzZSBzdHJpY3QnO1xyXG5cdHZhciBzcmNWYWx1ZSA9IHNvdXJjZS52YWx1ZTtcclxuXHRpZiAoc3JjVmFsdWUuc2VhcmNoKG5hbWVSZWdFeCkgPT09IC0xKSB7XHJcblx0XHRzb3VyY2UuY2xhc3NOYW1lID0gJ2NoaWxkIHBhc3NlZCc7XHJcblx0fSBlbHNlIHtcclxuXHRcdHNvdXJjZS5jbGFzc05hbWUgPSAnY2hpbGQgZGFuZ2VyJztcclxuXHR9XHJcblx0XHJcbn1cclxuXHJcblxyXG4vLzIuIEhhbmRsZXIgZnVuY3Rpb24gZm9yIGV2ZW50IGxpc3RlbmVyXHJcbmZ1bmN0aW9uIG15SGFuZGxlcihlKSB7XHJcblx0J3VzZSBzdHJpY3QnO1xyXG5cdHZhciBzcmMsXHJcblx0XHRzcmNOYW1lO1xyXG5cdGUgPSBlIHx8IHdpbmRvdy5ldmVudDtcclxuXHRzcmMgPSBlLnRhcmdldCB8fCBlLnNyY0VsZW1lbnQ7XHJcblx0LyppZiAoc3JjLm5vZGVOYW1lLnRvTG93ZXJDYXNlKCkgIT09ICdpbnB1dCcpIHtcclxuXHRcdHJldHVybjtcclxuXHR9Ki9cclxuXHRcclxuXHRzcmNOYW1lID0gc3JjLm5hbWU7XHJcblx0XHJcblx0aWYgKHNyYy52YWx1ZSAhPT0gJycpIHtcclxuXHRcdHN3aXRjaCAoc3JjTmFtZSkge1xyXG5cdFx0Y2FzZSAnZmlyc3RfbmFtZSc6XHJcblx0XHRjYXNlICdsYXN0X25hbWUnOlxyXG5cdFx0Y2FzZSAnY2l0eSc6XHJcblx0XHRcdGNoZWNrTmFtZXMoc3JjKTtcclxuXHRcdFx0YnJlYWs7XHJcblx0XHRcdFx0XHJcblx0XHR9XHJcblx0fSBlbHNlIHtcclxuXHRcdHNyYy5jbGFzc05hbWUgPSAnY2hpbGQnO1xyXG5cdH1cclxufVxyXG5cclxuLy8gMS4gQWRkaW5nIGV2ZW50IGxpc3RlbmVycyB0byBpbnB1dCBpdGVtcyBpbiAucGVyc29uLWRldGFpbHMgc2VjdGlvblxyXG5mb3IgKGkgPSAwOyBpIDwgaW5wdXRJdGVtLmxlbmd0aDsgaSA9IGkgKyAxKSB7XHJcblx0aW5wdXRJdGVtW2ldLmFkZEV2ZW50TGlzdGVuZXIoJ2JsdXInLCBteUhhbmRsZXIsIGZhbHNlKTtcclxufVxyXG4iXX0=
