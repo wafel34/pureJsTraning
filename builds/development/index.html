@@ -15,29 +15,29 @@
 	<div class="container">
 	<h1 class="text-center">Order details</h1>
 
-		<form action="/my-handling-form-page" method="get">
+		<form action="/my-handling-form-page" method="post">
 		<div class="row">
 			<div class="col-md-6">
 				<fieldset class="person-details">
 					<legend>Account / contact details:</legend>
 					<div class="parent">
 						<label class="child" for="first-name">First name:</label>
-						<input class="child" type="text" name="first_name" id="first-name" placeholder="John">
+						<input class="child" type="text" name="first_name" id="first-name" required placeholder="John">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="last-name">Last name:</label>
-						<input class="child" type="text" name="last_name" id="last-name" placeholder="Smith">
+						<input class="child" type="text" name="last_name" id="last-name" required placeholder="Smith">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="email-address">E-mail address:</label>
-						<input class="child" type="text" name="email_address" id="email-address" placeholder="john.smith@co.uk">
+						<input class="child" type="email" name="email_address" id="email-address" required placeholder="john.smith@co.uk">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="phone-number">Mobile number:</label>
-						<input class="child" type="text" name="phone_number" id="phone-number" placeholder="0744 800 7777">
+						<input class="child" type="text" name="phone_number" id="phone-number" required placeholder="0744 800 7777">
 					</div>
 				</fieldset>
 
@@ -45,22 +45,22 @@
 					<legend>Delivery address:</legend>
 					<div class="parent">
 						<label class="child" for="street-1">Street (Line 1):</label>
-						<input class="child" type="text" name="street_line_1" id="street-1" placeholder="10 Downing Street">
+						<input class="child" type="text" name="street_line_1" id="street-1" required placeholder="10 Downing Street">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="street-2">Street (Line 2):</label>
-						<input class="child" type="text" name="street_line_2" id="street-2" placeholder="City of Westminister">
+						<input class="child" type="text" name="street_line_2" id="street-2" required placeholder="City of Westminister">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="city">City:</label>
-						<input class="child" type="text" name="city" id="city" placeholder="London">
+						<input class="child" type="text" name="city" id="city" required placeholder="London">
 					</div>
 
 					<div class="parent">
 						<label class="child" for="postcode">Postcode:</label>
-						<input class="child" type="text" name="postcode" id="postcode" placeholder="SW1A 2AA">
+						<input class="child" type="text" name="postcode" id="postcode" required placeholder="SW1A 2AA">
 					</div>
 				</fieldset>
 			</div><!--col-md-6-->
