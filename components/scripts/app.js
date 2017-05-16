@@ -4,16 +4,17 @@
 var require = require;
 window.$ = window.jQuery = require('jquery');
 var bootstrap = require('bootstrap-sass');
-var nameRegEx = /[\d_+.,!@#$%\^&*();\/|<>"'?=+:]/i,
-	postCodes = /^[A-Za-z0-9]{2,4}\s+[A-Za-z0-9]{2,4}$/i,
-	postCodesForbid = /[_+.,!@#$%\^&*();\/|<>"'?=+:]/i,
-	ukMobilePatterns = [/^(\d{10,11})$/i,
-						/\d{4}\s\d{3}\s\d{4}/i,
-						/\d{4}\s\d{3}\s\d{2}\s\d{2}/i,
-					   /\d{3}\s\d{3}\s\d{4}/i,
-					   /\d{4}-\d{3}-\d{4}/i,
-					   /\d{4}-\d{3}-\d{2}-\d{2}/i],
+var nameRegEx = /[\d_+\.,!@#$%\^&*();\/|<>"'?=+:]/,
+	postCodes = /^[A-Za-z0-9]{2,4}\s+[A-Za-z0-9]{2,4}$/,
+	postCodesForbid = /[_+\.,!@#$%\^&*();\/|<>"'?=+:]/,
+	ukMobilePatterns = [/^(\d{10,11})$/,
+						/\d{4}\s\d{3}\s\d{4}/,
+						/\d{4}\s\d{3}\s\d{2}\s\d{2}/,
+					   /\d{3}\s\d{3}\s\d{4}/,
+					   /\d{4}-\d{3}-\d{4}/,
+					   /\d{4}-\d{3}-\d{2}-\d{2}/],
 	emailPattern = /^[a-z\d]+[\w\d.\-]*@(?:[a-z\d]+[a-z\d\-]+\.){1,5}[a-z]{2,6}$/i,
+	streetPattern = /[&\^@*();|<>"'?=+]/,
 	i,
 	inputItem = document.querySelectorAll('.person-details input.child'),
 	submitBtn = document.getElementById('submit-btn');
@@ -23,11 +24,32 @@ var nameRegEx = /[\d_+.,!@#$%\^&*();\/|<>"'?=+:]/i,
 function checkNames(source) {
 	'use strict';
 	var srcValue = source.value;
-	if (srcValue.search(nameRegEx) === -1) {
+	if (srcValue.length <= 0) {
+		source.className = 'child danger';
+		return false;
+	} else if (srcValue.search(nameRegEx) === -1) {
 		source.className = 'child passed';
 		return true;
 	} else {
 		source.className = 'child danger';
+		return false;
+	}
+}
+
+//7. Valitaion of First name, last name and city.
+function checkStreet(source) {
+	'use strict';
+	var srcValue = source.value;
+	
+	if (srcValue.length <= 0) {
+		source.className = 'child danger';
+		return false;
+	} else if (srcValue.search(streetPattern) === -1) {
+		source.className = 'child passed';
+		return true;
+	} else {
+		source.className = 'child danger';
+		return false;
 	}
 }
 
@@ -35,7 +57,10 @@ function checkNames(source) {
 function checkPostCode(source) {
 	'use strict';
 	var srcValue = source.value;
-	if (srcValue.search(postCodesForbid) === -1) {
+	console.log(source.className);
+	if (srcValue.length <= 0) {
+		source.className = 'child danger';
+	} else if (srcValue.search(postCodesForbid) === -1) {
 		if (postCodes.test(srcValue) === true) {
 			source.className = 'child passed';
 			return true;
@@ -45,10 +70,11 @@ function checkPostCode(source) {
 		}
 	} else {
 		source.className = 'child danger';
+		return false;
 	}
 }
 
-//5. Valitaion of Mobile
+//6. Valitaion of Mobile
 function checkMobile(source) {
 	'use strict';
 	var srcValue = source.value,
@@ -84,7 +110,10 @@ function checkType(src) {
 	'use strict';
 	//Assinging the name attribute to the variable
 	var srcName = src.name;
-	if (src.value !== '') {
+	if (srcName === 'street_line_2' && src.value === '') {
+		src.placeholder = '';
+		src.className = 'child passed';
+	} else if (src.value !== '') {
 		switch (srcName) {
 		case 'first_name':
 		case 'last_name':
@@ -99,6 +128,10 @@ function checkType(src) {
 			break;
 		case 'email_address':
 			checkEmail(src);
+			break;
+		case 'street_line_1':
+		case 'street_line_2':
+			checkStreet(src);
 			break;
 		}
 	} else {
@@ -126,10 +159,35 @@ inputItem.forEach(function (item) {
 
 submitBtn.onclick = function () {
 	'use strict';
-	if (checkPostCode(inputItem[7])) {
+	var validated = true;
+	if (checkNames(inputItem[0]) !== true) {
+		validated = false;
+	}
+	if (checkNames(inputItem[1]) !== true) {
+		validated = false;
+	}
+	if (checkEmail(inputItem[2]) !== true) {
+		validated = false;
+	}
+	if (checkMobile(inputItem[3]) !== true) {
+		validated = false;
+	}
+	if (checkStreet(inputItem[4]) !== true) {
+		validated = false;
+	}
+	//item 5 not required
+	if (checkNames(inputItem[6]) !== true) {
+		validated = false;
+	}
+	if (checkPostCode(inputItem[7]) !== true) {
+		validated = false;
+	}
+	
+	if (validated === true) {
 		return true;
 	} else {
-		alert('Błąd!');
+		alert('Error! Please check again!');
 		return false;
 	}
+
 };
