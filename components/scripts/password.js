@@ -18,21 +18,36 @@ IssueTracker.prototype = {
         message = "Please correct the following issues:\n" + this.issues.join('n');
         break;
     }
-    alert(message);
     return message;
   }
 };
 
-var submitButton = document.getElementById('btn');
-
+var submitButton = document.getElementById('btn'),
+    firstPasswordInput = document.getElementById('password1');
 
 btn.onclick = function () {
-  var firstPassowrd = document.getElementById('password1').value,
+  var firstPassword = firstPasswordInput.value,
       secondPassowrd = document.getElementById('password2').value;
 
   var firstInputIssuesTracker = new IssueTracker();
   var secondInputIssuesTracker = new IssueTracker();
 
-  console.log(firstPassowrd.value.length);
+
+  function checkRequirements () {
+    if(firstPassword.length<8) {
+      firstInputIssuesTracker.add('Password too short');
+    }
+  }
+
+  if(firstPassword.length > 0){
+    checkRequirements();
+  } else {
+    firstInputIssuesTracker.add('Passwords must match');
+  }
+  console.log(firstPassword.length);
+
+  var firstInputIssues = firstInputIssuesTracker.reterieve();
+
+  firstPasswordInput.setCustomValidity(firstInputIssues);
 
 };
