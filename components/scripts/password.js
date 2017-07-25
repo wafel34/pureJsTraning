@@ -1,29 +1,28 @@
 function IssueTracker() {
-  this.issues = [];
+    this.issues = [];
 }
 
 IssueTracker.prototype = {
-  add: function(issue) {
-    this.issues.push(issue);
-  },
-  reterieve: function() {
-    var message = "";
-    switch (this.issues.length) {
-      case 0:
-        break;
-      case 1:
-        message = "Please correct the following issue:\n" + this.issues.join('n');
-        break;
-      default:
-        message = "Please correct the following issues:\n" + this.issues.join('n');
-        break;
+    add: function(issue) {
+        this.issues.push(issue);
+    },
+    reterieve: function() {
+        var message = "";
+        switch (this.issues.length) {
+        case 0:
+            break;
+        case 1:
+            message = "Please correct the following issue:\n" + this.issues.join("n");
+            break;
+        default:
+            message = "Please correct the following issues:\n" + this.issues.join("n");
+            break;
+        }
+        return message;
     }
-    return message;
-  }
 };
-
-var submitButton = document.getElementById('btn'),
-    firstPasswordInput = document.getElementById('password1');
+/*
+var firstPasswordInput = document.getElementById('password1");
 
 btn.onclick = function () {
   var firstPassword = firstPasswordInput.value,
@@ -51,3 +50,4 @@ btn.onclick = function () {
   firstPasswordInput.setCustomValidity(firstInputIssues);
 
 };
+*/

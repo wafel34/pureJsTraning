@@ -26,7 +26,8 @@
 				this.setState({editing: true})
 			},
 			save() {
-				this.setState({ediing: false})
+        var val = this.refs.newText.value
+				this.setState({editing: false})
 			},
 			remove() {
 				alert('Dupa')
@@ -34,7 +35,7 @@
 			renderForm() {
 				return (
 					<div className="note">
-						<textearea></textearea>
+						<textarea ref="newText"></textarea>
 						<span>
 							<button onClick={this.save}>SAVE</button>
 						</span>
@@ -44,7 +45,7 @@
 			renderDisplay() {
 				return (
 					<div className="note">
-						<p>Test</p>
+						<p>{this.props.children}</p>
 						<span>
 							<button onClick={this.edit}>EDIT</button>
 							<button onClick={this.remove}>X</button>
@@ -53,15 +54,38 @@
 				)
 			},
 			render() {
-				if (this.state.editing) {
-					return this.renderForm()
-				} else {
-					return this.renderDisplay()
-				}
+        return (this.state.editing) ? this.renderForm() : this.renderDisplay()
 			}
 		})
 
-		ReactDOM.render(<Note></Note>, document.getElementById('react-container'))
+    var Board = React.createClass({
+      getInitialState() {
+        return {
+          notes: [
+            "Note 1",
+            "Note 2",
+            "Note 3",
+            "Note 4",
+            "Note 5",
+            "Note 6",
+            "Note 7",
+            "Note 8",
+          ]
+        }
+      },
+      render() {
+        return (
+          <div className="board">
+            {this.state.notes.map(function(note, i){
+              return <Note key={i}>{note}</Note>
+            }
+          )}
+          </div>
+        )
+      }
+    })
+
+		ReactDOM.render(<Board count={10}></Board>, document.getElementById('react-container'))
 	</script>
 
 </body>
