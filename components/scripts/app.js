@@ -40,7 +40,7 @@ function checkNames(source) {
 function checkStreet(source) {
 	'use strict';
 	var srcValue = source.value;
-	
+
 	if (srcValue.length <= 0) {
 		source.className = 'child danger';
 		return false;
@@ -82,7 +82,7 @@ function checkMobile(source) {
 	result = ukMobilePatterns.filter(function (item) {
 		return (item.test(srcValue) === true);
 	});
-		
+
 	if (result.length > 0) {
 		source.className = 'child passed';
 		return true;
@@ -95,7 +95,7 @@ function checkMobile(source) {
 function checkEmail(source) {
 	'use strict';
 	var srcValue = source.value;
-	
+
 	if (emailPattern.test(srcValue) === true) {
 		source.className = 'child passed';
 		return true;
@@ -182,7 +182,7 @@ submitBtn.onclick = function () {
 	if (checkPostCode(inputItem[7]) !== true) {
 		validated = false;
 	}
-	
+
 	if (validated === true) {
 		return true;
 	} else {

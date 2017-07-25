@@ -1,46 +1,30 @@
-@import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss"
-@import "variables"
-
 body
-	font-family: Asap, sans-serif
-	font-size: 16px
-	background-color: $color-backgrounds
+	padding: 0
+	margin: 0
 
+.note
+	width: 200px
+	height: 200px
+	background: yellow
+	position: relative
+	padding: 10px
 
+	span
+		position: absolute
+		bottom: 10px
+		right: 5px
+		visibility: hidden
+		opacity: 0
+		transition: opacity .3s ease-in-out
 
-fieldset
-  margin: 50px 0 25px 0
+	&:hover
+		span
+			visibility: visible
+			opacity: 1
+			
+button
+	margin-right: 5px
 
-.person-details
-	.parent
-		display: flex
-		.child
-			justify-content: space-between
-			align-self: center
-			width: 50%
-			&:nth-child(2)
-				width: 70%
-	input
-		padding: 10px
-		margin-bottom: 10px
-		border-radius: 10px
-		border: 1px solid black
-		&:focus
-			outline: none
-			border: 1px solid blue
-			box-shadow: 0 0 1px 2px lightblue
-
-	.passed
-		border: 1px solid $green
-		box-shadow: 0px 0px 2px 1px $green
-	.danger
-		border: 1px solid $red
-		box-shadow: 0px 0px 2px 1px $red
-
-
-.delivery-payment
-	.parent
-		padding: 20px 0
-	.child
-		display: block
-		padding: 20px 0
+p
+	padding: 0
+	margin: 0

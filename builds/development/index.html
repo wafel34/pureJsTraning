@@ -9,107 +9,60 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="css/style.css">
+	<script src="https://fb.me/react-0.14.3.js"></script>
+	<script src="https://fb.me/react-dom-0.14.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.js"></script>
 </head>
 <body>
 
-	<div class="container">
-	<h1 class="text-center">Order details</h1>
+	<div id="react-container"></div>
 
-		<form action="/my-handling-form-page" method="post">
-		<div class="row">
-			<div class="col-md-6">
-				<fieldset class="person-details">
-					<legend>Account / contact details:</legend>
-					<div class="parent">
-						<label class="child" for="first-name">First name:</label>
-						<input class="child" type="text" name="first_name" id="first-name" required placeholder="John">
+	<script type="text/babel">
+		var Note = React.createClass({
+			getInitialState() {
+				return {editing: false}
+			},
+			edit() {
+				this.setState({editing: true})
+			},
+			save() {
+				this.setState({ediing: false})
+			},
+			remove() {
+				alert('Dupa')
+			},
+			renderForm() {
+				return (
+					<div className="note">
+						<textearea></textearea>
+						<span>
+							<button onClick={this.save}>SAVE</button>
+						</span>
 					</div>
-
-					<div class="parent">
-						<label class="child" for="last-name">Last name:</label>
-						<input class="child" type="text" name="last_name" id="last-name" required placeholder="Smith">
+				)
+			},
+			renderDisplay() {
+				return (
+					<div className="note">
+						<p>Test</p>
+						<span>
+							<button onClick={this.edit}>EDIT</button>
+							<button onClick={this.remove}>X</button>
+						</span>
 					</div>
+				)
+			},
+			render() {
+				if (this.state.editing) {
+					return this.renderForm()
+				} else {
+					return this.renderDisplay()
+				}
+			}
+		})
 
-					<div class="parent">
-						<label class="child" for="email-address">E-mail address:</label>
-						<input class="child" type="email" name="email_address" id="email-address" required placeholder="john.smith@co.uk">
-					</div>
+		ReactDOM.render(<Note></Note>, document.getElementById('react-container'))
+	</script>
 
-					<div class="parent">
-						<label class="child" for="phone-number">Mobile number:</label>
-						<input class="child" type="text" name="phone_number" id="phone-number" required placeholder="0744 800 7777">
-					</div>
-				</fieldset>
-
-				<fieldset class="person-details">
-					<legend>Delivery address:</legend>
-					<div class="parent">
-						<label class="child" for="street-1">Street (Line 1):</label>
-						<input class="child" type="text" name="street_line_1" id="street-1" required placeholder="10 Downing Street">
-					</div>
-
-					<div class="parent">
-						<label class="child" for="street-2">Street (Line 2):</label>
-						<input class="child" type="text" name="street_line_2" id="street-2" placeholder="City of Westminister">
-					</div>
-
-					<div class="parent">
-						<label class="child" for="city">City:</label>
-						<input class="child" type="text" name="city" id="city" required placeholder="London">
-					</div>
-
-					<div class="parent">
-						<label class="child" for="postcode">Postcode:</label>
-						<input class="child" type="text" name="postcode" id="postcode" required placeholder="SW1A 2AA">
-					</div>
-				</fieldset>
-			</div><!--col-md-6-->
-			<div class="col-md-6">
-				<fieldset class="delivery-payment">
-					<legend>Delivery type / Payment Method</legend>
-					<fieldset>
-						<legend>Delivery Type:</legend>
-						<div class="parent">
-							<label for="delivery1" class="child">
-								<input type="radio" name="delivery" id="delivery1">Standard Delivery (up to 5 working days)
-							</label>
-							<label for="delivery2" class="child">
-								<input type="radio" name="delivery" id="delivery2">Express Delivery (24h)
-							</label>
-						</div>
-					</fieldset>
-
-					<fieldset class="delivery-payment">
-						<legend>Payment Method:</legend>
-						<div class="parent">
-							<label for="payment1" class="child">
-								<input type="radio" name="payment" id="payment1">PayPal
-							</label>
-							<label for="payment2" class="child">
-								<input type="radio" name="payment" id="payment2">Credit/Debit Card
-							</label>
-						</div><!--parent-->
-					</fieldset>
-				</fieldset><!--outer-->
-			</div><!--col-md-6-->
-		</div><!--row-->
-
-		<div class="button text-center">
-	  		<button type="submit" id='submit-btn'>Proceed to Payment</button>
-		</div><!--button-->
-		</form>
-
-		<form action="#">
-					<fieldset>
-						<label for="paswword1">Passowrd:</label>
-						<input type="password" placeholder="Enter your password" id="password1">
-						<label for="paswword2">Re-type:</label>
-						<input type="password" placeholder="Re-tye your password" id="password2">
-						<input type="submit" id="btn" value="SUBMIT">
-					</fieldset>
-		</form>
-
-	</div>
-<script src="js/main.js"></script>
 </body>
 </html>
