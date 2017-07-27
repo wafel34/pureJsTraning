@@ -32,9 +32,18 @@
 			remove() {
 				this.props.onRemove(this.props.id)
 			},
+			componentWillMount(){
+				this.style = {
+					right: this.randomBetween(0, window.innerWidth - 150 , 'px'),
+					top: this.randomBetween(0, window.innerHeight - 150, 'px')
+				}
+			},
+			randomBetween(x, y, s){
+				return (x + Math.ceil(Math.random() * (y-x))) + s
+			},
 			renderForm() {
 				return (
-					<div className="note">
+					<div className="note" style={this.style}>
 						<textarea ref="newText"></textarea>
 						<span>
 							<button onClick={this.save}>SAVE</button>
@@ -44,7 +53,7 @@
 			},
 			renderDisplay() {
 				return (
-					<div className="note">
+					<div className="note" style={this.style}>
 						<p>{this.props.children}</p>
 						<span>
 							<button onClick={this.edit}>EDIT</button>
@@ -61,14 +70,23 @@
     var Board = React.createClass({
       getInitialState() {
         return {
-          notes: [
-			  {id: 0, note: "Note 1"},
-			  {id: 1, note: "Note 2"},
-			  {id: 2, note: "Note 3"},
-			  {id: 3, note: "Note 4"}
-          ]
+          notes: []
         }
       },
+	  nextId() {
+		  this.uniqueId = this.uniqueId || 0
+		  return this.uniqueId++
+	  },
+	  add(text) {
+		  var notes = [
+			  ...this.state.notes,
+			  {
+				  id: this.nextId(),
+				  note: text
+			  }
+		  ]
+		  this.setState({notes})
+	  },
 	  update(newText, id) {
 		var notes = this.state.notes.map(function(note){
 			return (note.id !== id) ? note : {...note, note: newText}
@@ -94,6 +112,7 @@
         return (
           <div className="board">
             {this.state.notes.map(this.eachNote)}
+			<button className="add-note" onClick={() => this.add("New note")}>+</button>
           </div>
         )
       }
