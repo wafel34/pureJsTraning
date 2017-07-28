@@ -12,6 +12,10 @@
 	<script src="https://fb.me/react-0.14.3.js"></script>
 	<script src="https://fb.me/react-dom-0.14.3.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.js">
+	</script>
+	<script src="https://npmcdn.com/react-draggable"></script>
 </head>
 <body>
 
@@ -38,13 +42,23 @@
 					top: this.randomBetween(0, window.innerHeight - 150, 'px')
 				}
 			},
+			componentDidUpdate(){
+				if (this.state.editing) {
+					this.refs.newText.focus()
+					this.refs.newText.select()
+				}
+			},
+			shouldComponenetUpdate(nextProps, nextState) {
+				return this.props.children !== nextProps || this.state !== nextState
+			},
 			randomBetween(x, y, s){
 				return (x + Math.ceil(Math.random() * (y-x))) + s
 			},
 			renderForm() {
 				return (
 					<div className="note" style={this.style}>
-						<textarea ref="newText"></textarea>
+						<textarea ref="newText" defaultValue={this.props.children}>
+						</textarea>
 						<span>
 							<button onClick={this.save}>SAVE</button>
 						</span>
@@ -63,7 +77,7 @@
 				)
 			},
 			render() {
-        return (this.state.editing) ? this.renderForm() : this.renderDisplay()
+        return (<ReactDraggable>{(this.state.editing) ? this.renderForm() : this.renderDisplay()}</ReactDraggable>)
 			}
 		})
 
@@ -73,6 +87,21 @@
           notes: []
         }
       },
+	  componentWillMount() {
+		if (this.props.count) {
+			var url = 'http://baconipsum.com/api/?type=all-meat&sentences=10'
+
+			fetch(url)
+				.then(results => results.json())
+				.then(array => array[0])
+				.then(text => text.split('. '))
+				.then(array => array.forEach(
+					sentence => this.add(sentence)
+				)).catch(function(err){
+					console.log("Didn't connetct to API")
+				})
+		}
+	  },
 	  nextId() {
 		  this.uniqueId = this.uniqueId || 0
 		  return this.uniqueId++
